@@ -1,6 +1,128 @@
 {
   "version": 1,
   "projects": {
+    "anotherapp": {
+      "projectType": "application",
+      "root": "apps/anotherapp",
+      "sourceRoot": "apps/anotherapp/src",
+      "prefix": "nxcypress",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/anotherapp",
+            "index": "apps/anotherapp/src/index.html",
+            "main": "apps/anotherapp/src/main.ts",
+            "polyfills": "apps/anotherapp/src/polyfills.ts",
+            "tsConfig": "apps/anotherapp/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/anotherapp/src/favicon.ico",
+              "apps/anotherapp/src/assets"
+            ],
+            "styles": ["apps/anotherapp/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/anotherapp/src/environments/environment.ts",
+                  "with": "apps/anotherapp/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "anotherapp:build:production"
+            },
+            "development": {
+              "browserTarget": "anotherapp:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "anotherapp:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/anotherapp/src/**/*.ts",
+              "apps/anotherapp/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/anotherapp"],
+          "options": {
+            "jestConfig": "apps/anotherapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "anotherapp-e2e": {
+      "root": "apps/anotherapp-e2e",
+      "sourceRoot": "apps/anotherapp-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/anotherapp-e2e/cypress.json",
+            "devServerTarget": "anotherapp:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "anotherapp:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/anotherapp-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["anotherapp"]
+    },
     "demo": {
       "projectType": "application",
       "root": "apps/demo",
