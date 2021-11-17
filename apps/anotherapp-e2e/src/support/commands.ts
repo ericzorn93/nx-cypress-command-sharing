@@ -15,6 +15,7 @@ declare namespace Cypress {
     login(email: string, password: string): void;
   }
 }
+
 //
 // -- This is a parent command --
 Cypress.Commands.add('login', (email, password) => {

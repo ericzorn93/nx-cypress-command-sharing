@@ -241,6 +241,29 @@
       },
       "tags": [],
       "implicitDependencies": ["demo"]
+    },
+    "shared-cypress-commands": {
+      "root": "libs/shared/cypress-commands",
+      "sourceRoot": "libs/shared/cypress-commands/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/shared/cypress-commands/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/cypress-commands"],
+          "options": {
+            "jestConfig": "libs/shared/cypress-commands/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
     }
   }
 }
